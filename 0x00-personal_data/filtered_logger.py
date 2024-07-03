@@ -75,7 +75,7 @@ def main() -> None:
     for row in cursor:
         data = ''
         for i, j in zip(row, headers):
-            data += f'{j}={i}; '
+            data += f'{j}={{i}}; '
         logger.info(data)
 
     cursor.close()
