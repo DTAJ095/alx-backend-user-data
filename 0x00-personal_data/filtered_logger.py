@@ -69,13 +69,13 @@ def main() -> None:
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT COUNT(*) FROM users;")
-    headers = [field[0] for field in cursor.description]
+    fields = [field[0] for field in cursor.description]
     logger = get_logger()
 
     for row in cursor:
         data = ''
-        for i, j in zip(row, headers):
-            data += f'{j}={{i}}; '
+        for i, j in zip(row, fields):
+            data += f'{j}={str(i)}; '
         logger.info(data)
 
     cursor.close()
