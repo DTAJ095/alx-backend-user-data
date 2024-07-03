@@ -76,7 +76,7 @@ def main() -> None:
         data = ''
         for i, j in zip(row, fields):
             data += f'{j}={str(i)}; '
-        logger.info(data)
+        logger.info(data.strip())
 
     cursor.close()
     db.close()
