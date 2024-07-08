@@ -34,4 +34,3 @@ class BasicAuth(Auth):
                 return result.decode('utf-8')
             except (binascii.Error, UnicodeDecodeError):
                 return None
-        return None
