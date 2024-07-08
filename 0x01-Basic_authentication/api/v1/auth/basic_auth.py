@@ -27,10 +27,9 @@ class BasicAuth(Auth):
         """ Returns the decoded value of Base64 string """
         if base64_authorization_header is None:
             return None
-        if isinstance(base64_authorization_header, str):
-            try:
-                result = base64.b64decode(base64_authorization_header,
-                                          validate=True)
-                return result.decode('utf-8')
-            except (binascii.Error, UnicodeDecodeError):
-                return None
+        if not isinstance(base64_authorization_header, str):
+            return None
+        try:
+            return base64_authorization_header.encode('utf-8').decode('base64')
+        except Exception:
+            return None
