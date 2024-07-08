@@ -22,18 +22,18 @@ if auth_type == 'basic_auth':
     auth = BasicAuth()
 
 
-# @app.before_request
-# def user_authentication():
-#     """ authenticate user before request """
-#     if auth:
-#         excluded_paths = ['/api/v1/status/',
-#                           '/api/v1/unauthorized/',
-#                           '/api/v1/forbidden/']
-#         if auth.require_auth(request.path, excluded_paths):
-#             if not auth.authorization_header(request):
-#                 abort(401)
-#             if not auth.current_user(request):
-#                 abort(403)
+@app.before_request
+def user_authentication():
+    """ authenticate user before request """
+    if auth:
+        excluded_paths = ['/api/v1/status/',
+                          '/api/v1/unauthorized/',
+                          '/api/v1/forbidden/']
+        if auth.require_auth(request.path, excluded_paths):
+            if not auth.authorization_header(request):
+                abort(401)
+            if not auth.current_user(request):
+                abort(403)
 
 
 @app.errorhandler(401)
@@ -41,6 +41,13 @@ def unauthorized(error) -> str:
     """ unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
+
+
+@app.errorhandler(403)
+def forbidden(error) -> str:
+    """ forbidden handler
+    """
+    return jsonify({"error": "Forbidden"}), 403
 
 
 @app.errorhandler(404)
