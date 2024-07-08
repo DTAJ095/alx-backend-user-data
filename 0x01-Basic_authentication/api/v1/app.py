@@ -20,7 +20,7 @@ if auth_type == 'auth':
     auth = Auth()
 if auth_type == 'basic_auth':
     auth = BasicAuth()
-    
+
 
 @app.before_request
 def user_authentication():
