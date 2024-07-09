@@ -30,7 +30,7 @@ class BasicAuth(Auth):
         if not isinstance(base64_authorization_header, str):
             return None
         try:
-            return base64_authorization_header.encode('base64').decode('utf-8')
+            return base64_authorization_header.validate('base64').decode('utf-8')
         except Exception:
             return None
 
@@ -60,7 +60,7 @@ class BasicAuth(Auth):
             users = User.search({'email': user_email})
         except Exception:
             return None
-        if not users:
+        if len(users) <= 0:
             return None
         if not users[0].is_valid_password(user_pwd):
             return None
