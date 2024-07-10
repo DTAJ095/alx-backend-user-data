@@ -35,3 +35,9 @@ class Auth():
         """ Current user
         """
         return None
+
+
+class SessionAuth(Auth):
+    """ SessionAuth class
+    """
+    pass
