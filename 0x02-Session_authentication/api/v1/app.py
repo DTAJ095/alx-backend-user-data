@@ -34,7 +34,7 @@ def user_authentication():
                 abort(401)
             if not auth.current_user(request):
                 abort(403)
-    return request.current_user
+        return request.current_user
 
 
 @app.errorhandler(401)
