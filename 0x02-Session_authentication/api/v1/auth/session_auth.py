@@ -33,7 +33,7 @@ class SessionAuth(Auth):
 
     def current_user(self, request=None):
         """ returns a user based on a cookie value """
-        cookie = self.session_cookie(request)
-        user_id = self.user_id_for_session_id(cookie)
+        _my_session_id = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(_my_session_id)
         user = User.get(user_id)
         return user
