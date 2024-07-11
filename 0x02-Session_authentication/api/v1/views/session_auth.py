@@ -14,7 +14,7 @@ def user_auth_session_login():
     """ Handles user login authentication """
     email = request.form.get('email')
     password = request.form.get('password')
-    if email is None or email == "":
+    if email is None or len(email) == 0:
         return jsonify({"error": "email missing"}), 400
     if password is None or password == "":
         return jsonify({"error": "password missing"}), 400
