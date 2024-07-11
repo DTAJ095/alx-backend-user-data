@@ -7,10 +7,11 @@ from flask import abort, jsonify, request
 import os
 from api.v1.views import app_views
 from models.user import User
+from typing import Union, Dict
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def user_auth_session_login():
+def user_auth_session_login() -> str:
     """ Handles user login authentication """
     email = request.form.get('email')
     password = request.form.get('password')
@@ -37,9 +38,9 @@ def user_auth_session_login():
 
 @app_views.route('/api/v1/auth_session/logout',
                  methods=['DELETE'], strict_slashes=False)
-def user_auth_session_logout():
+def user_auth_session_logout() -> Union[bool, Dict]:
     """ Delete user session/logout """
     from api.v1.app import auth
     if not auth.destroy_session(request):
-        return False, abort(404)
+        abort(404)
     return jsonify({}), 200
