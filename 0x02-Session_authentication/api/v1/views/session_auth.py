@@ -42,5 +42,5 @@ def user_auth_session_logout() -> Union[bool, Dict]:
     """ Delete user session/logout """
     from api.v1.app import auth
     if not auth.destroy_session(request):
-        abort(404)
+        return False, abort(404)
     return jsonify({}), 200
