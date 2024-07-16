@@ -37,10 +37,6 @@ class Auth:
         except NoResultFound:
             return False
 
-    def _generate_uuid(self) -> str:
-        """ Generate a UUID """
-        return str(uuid.uuid4())
-
     def create_session(self, email: str) -> str:
         """ Create a new session """
         try:
@@ -71,3 +67,7 @@ class Auth:
 def _hash_password(password: str) -> bytes:
     """ Hash a password """
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+def _generate_uuid(self) -> str:
+    """ Generate a UUID """
+    return str(uuid.uuid4())
