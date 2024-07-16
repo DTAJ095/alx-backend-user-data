@@ -46,10 +46,8 @@ class DB():
         """
         try:
             return self._session.query(User).filter_by(**kwargs).one()
-        except NoResultFound:
+        except (NoResultFound, InvalidRequestError):
             raise NoResultFound
-        except InvalidRequestError:
-            raise InvalidRequestError
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update a user by a given attribute
