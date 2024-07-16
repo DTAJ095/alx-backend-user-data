@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """DB module
 """
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, tuple_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
@@ -48,11 +48,17 @@ class DB():
     def find_user_by(self, **kwargs) -> User:
         """Find a user by a given attribute
         """
+        attrs, vals = [], []
+        for attr, val in kwargs.items():
+            if not hasattr(User, attr):
+                raise InvalidRequestError
+            attrs.append(getattr(User, attr))
+            vals.append(val)
         try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except (InvalidRequestError):
-            raise
+            user = self._session.query(User).filter(tuple_(*attrs) == tuple(vals)).one()
+        except NoResultFound:
+            user = None
+        return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update a user by a given attribute
