@@ -64,10 +64,11 @@ class DB():
         """Update a user by a given attribute
         """
         user = self.find_user_by(id=user_id)
-        for attr, val in kwargs.items():
-            if not hasattr(user, attr):
-                raise ValueError()
-            setattr(user, attr, val)
+        columns = user.__table__.columns.keys()
+        for attr, value in kwargs.items():
+            if attr in columns:
+                setattr(user, attr, value)
+            else:
+                raise ValueError
         self._session.commit()
         return None
-
