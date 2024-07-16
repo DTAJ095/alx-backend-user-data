@@ -36,7 +36,8 @@ def login():
 
     if AUTH.valid_login(email, password):
         session_id = AUTH.create_session(email)
-        response = make_response(jsonify({"email": email, "message": "logged in"}))
+        response = make_response(jsonify({"email": email,
+                                          "message": "logged in"}))
         response.set_cookie("session_id", session_id)
         return response
     else:
@@ -58,5 +59,5 @@ def logout():
         abort(403)
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
