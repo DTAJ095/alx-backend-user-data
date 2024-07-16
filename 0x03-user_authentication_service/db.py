@@ -65,11 +65,10 @@ class DB():
         """
         user = self.find_user_by(id=user_id)
         columns = user.__table__.columns.keys()
-        for key, value in kwargs.items():
-            if key in columns:
-                setattr(user, key, value)
+        for attr, value in kwargs.items():
+            if attr in columns:
+                setattr(user, attr, value)
             else:
                 raise ValueError
-        self._session.add(user)
         self._session.commit()
         return None
