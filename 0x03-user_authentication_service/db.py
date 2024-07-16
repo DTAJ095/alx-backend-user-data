@@ -55,7 +55,7 @@ class DB():
             attrs.append(getattr(User, attr))
             vals.append(val)
         query = tuple_(attrs).in_([tuple(vals)])
-        user = self._session.query(User).filter(query).one()
+        user = self._session.query(User).filter(query).first()
         if not user:
             raise NoResultFound
         return user
