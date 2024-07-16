@@ -55,7 +55,7 @@ class DB():
             attrs.append(getattr(User, attr))
             vals.append(val)
         try:
-            user = self._session.query(User).filter(tuple_(*attrs) == tuple(vals)).one()
+            user = self._session.query(User).filter(tuple_(*attrs) == tuple(vals)).first()
         except NoResultFound:
             user = None
         return user
