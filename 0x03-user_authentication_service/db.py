@@ -11,7 +11,7 @@ from user import Base
 from user import User
 
 
-class DB:
+class DB():
     """DB class
     """
 
@@ -63,4 +63,3 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return None
-
