@@ -1,4 +1,4 @@
-#!/sur/bin/env python3
+#!/usr/bin/env python3
 """ Basic Flask app """
 import flask
 from flask import Flask, jsonify, request, abort, make_response, redirect, url_for
