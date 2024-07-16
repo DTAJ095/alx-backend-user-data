@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """ Basic Flask app """
 import flask
-from flask import Flask, jsonify, request, abort, make_response, redirect, url_for
+from flask import Flask, jsonify, request, abort, redirect, url_for
 from auth import Auth
 
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 AUTH = Auth()
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def index():
+def index() -> str:
     """ return index page """
     return jsonify({"message": "Bienvenue"})
 
