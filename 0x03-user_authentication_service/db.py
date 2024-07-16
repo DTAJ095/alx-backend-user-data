@@ -51,13 +51,13 @@ class DB():
         attrs, vals = [], []
         for attr, val in kwargs.items():
             if not hasattr(User, attr):
-                raise InvalidRequestError
+                raise InvalidRequestError()
             attrs.append(getattr(User, attr))
             vals.append(val)
-        try:
-            user = self._session.query(User).filter(tuple_(*attrs) == tuple(vals)).first()
-        except NoResultFound:
-            user = None
+        query = tuple_(attrs).in_([tuple(vals)])
+        user = self._session.query(User).filter(query).one()
+        if not user:
+            raise NoResultFound
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
