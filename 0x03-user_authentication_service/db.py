@@ -48,17 +48,21 @@ class DB():
     def find_user_by(self, **kwargs) -> User:
         """Find a user by a given attribute
         """
-        attrs, vals = [], []
-        for attr, val in kwargs.items():
-            if not hasattr(User, attr):
-                raise InvalidRequestError()
-            attrs.append(getattr(User, attr))
-            vals.append(val)
-        query = tuple_(attrs).in_([tuple(vals)])
-        user = self._session.query(User).filter(query).one()
+        user = self._session.query(User).filter_by(**kwargs).first()
         if not user:
             raise NoResultFound
         return user
+        # attrs, vals = [], []
+        # for attr, val in kwargs.items():
+        #     if not hasattr(User, attr):
+        #         raise InvalidRequestError()
+        #     attrs.append(getattr(User, attr))
+        #     vals.append(val)
+        # query_set = tuple_(attrs).in_([tuple(vals)])
+        # user = self._session.query(User).filter(query_set).first()
+        # if not user:
+        #     raise NoResultFound
+        # return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update a user by a given attribute
